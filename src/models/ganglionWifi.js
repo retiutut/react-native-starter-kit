@@ -86,13 +86,13 @@ wifi.connect({
   streamStart: true,
   ipAddress: deviceAddr,
 })
-  .then(() => {
-    MAX_SAMPLE_NUMBER = wifi.getNumberOfChannels() === 4 ? 200 : 255;
-  })
-  .catch((err) => {
-    console.log(err);
-    process.exit(0);
-  });
+.then(() => {
+  MAX_SAMPLE_NUMBER = wifi.getNumberOfChannels() === 4 ? 200 : 255;
+})
+.catch((err) => {
+  console.log(err);
+  process.exit(0);
+});
 
 function exitHandler(options, err) {
   if (options.cleanup) {

@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 class GanglionListing extends Component {
   static propTypes = {
     Layout: PropTypes.func.isRequired,
-    recipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+    debugData: PropTypes.arrayOf(PropTypes.shape()).isRequired,
     match: PropTypes.shape({ params: PropTypes.shape({}) }),
-    fetchRecipes: PropTypes.func.isRequired,
+    fetchDebugData: PropTypes.func.isRequired,
     fetchMeals: PropTypes.func.isRequired,
   }
 
@@ -39,18 +39,32 @@ class GanglionListing extends Component {
       }));
   }
   */
+  fetchData = (data) => {
+    const { fetchDebugData } = this.props;
+
+    this.setState({ loading: true });
+
+    return fetchDebugData(data)
+      //.then(() => fetchMeals())
+      .then(() => this.setState({
+        loading: false,
+        error: null,
+      })).catch(err => this.setState({
+        loading: false,
+        error: err,
+      }));
+  }
 
   render = () => {
-    const { Layout, recipes, match } = this.props;
+    const { Layout, debugData, match } = this.props;
     const { loading, error } = this.state;
     const id = (match && match.params && match.params.id) ? match.params.id : null;
 
     return (
       <Layout
-        recipeId={id}
         error={error}
         loading={loading}
-        recipes={recipes}
+        debugData={debugData}
         reFetch={() => this.fetchData()}
       />
     );
@@ -58,12 +72,11 @@ class GanglionListing extends Component {
 }
 
 const mapStateToProps = state => ({
-  recipes: state.recipes.recipes || {},
+  debugData: state.debugData.debugData || {},
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMeals: dispatch.recipes.getMeals,
-  fetchRecipes: dispatch.recipes.getRecipes,
+  fetchDebugData: dispatch.recipes.getDebugData,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GanglionListing);
