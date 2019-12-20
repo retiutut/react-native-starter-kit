@@ -28,8 +28,8 @@ let counter = 0;
 let sampleRateCounterInterval = null;
 let lastSampleNumber = 0;
 let MAX_SAMPLE_NUMBER = 255;
-let droppedPacketArray = [];
-let sampleRateArray = [];
+const droppedPacketArray = [];
+const sampleRateArray = [];
 let droppedPackets = 0;
 
 const sum = (acc, cur) => acc + cur;

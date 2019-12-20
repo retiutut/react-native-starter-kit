@@ -26,6 +26,9 @@ import ProfileComponent from '../components/User/Profile';
 
 import AboutComponent from '../components/About';
 
+import GanglionContainer from '../../containers/Ganglion';
+import GanglionComponent from '../components/GanglionData';
+
 const Index = (
   <Stack hideNavBar>
     <Scene hideNavBar>
@@ -93,6 +96,14 @@ const Index = (
             component={UpdateProfileContainer}
             Layout={UpdateProfileComponent}
           />
+        </Stack>
+        <Stack
+          key="ganglion"
+          title={AppConfig.appName.toUpperCase()}
+          icon={() => <Icon name="planet" {...DefaultProps.icons} />}
+          {...DefaultProps.navbarProps}
+        >
+          <Scene key="recipes" component={GanglionContainer} Layout={GanglionComponent} />
         </Stack>
       </Tabs>
     </Scene>
